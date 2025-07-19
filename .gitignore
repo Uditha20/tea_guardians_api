@@ -1,0 +1,8 @@
+tea_disease_model.tflite
+Lib
+Scripts
+__pycache__
+*.pyc
+*.pyo
+venv
+pyenv.cfg
