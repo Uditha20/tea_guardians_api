@@ -17,7 +17,9 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="Tea Disease Classification API",
     description="API for classifying tea leaf diseases",
-    version="1.0.0"
+    version="1.0.0",
+    root_path="/predict"
+    
 )
 
 
