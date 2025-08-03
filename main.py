@@ -116,7 +116,8 @@ class VisionTransformer(layers.Layer):
 app = FastAPI(
     title="Disease Prediction API",
     description="AI-powered disease prediction from medical images",
-    version="1.0.0"
+    version="1.0.0",
+    root_path="/predict"
 )
 
 # Global model variable
