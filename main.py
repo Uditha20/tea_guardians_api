@@ -124,12 +124,12 @@ app = FastAPI(
 model = None
 
 # Class names - Update these based on your actual tea disease classes
+
 CLASS_NAMES = [
-    "Healthy",
-    "Tea_Disease_1", 
-    "Tea_Disease_2",
-    "Tea_Disease_3"
-    # Replace with your actual 4 tea disease class names
+    "Tea Algal Leaf Spot",
+    "Brown Blight",
+    "Gray Blight",
+    "Healthy"
 ]
 
 @app.on_event("startup")
