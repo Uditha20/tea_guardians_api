@@ -257,11 +257,21 @@ async def predict_disease(file: UploadFile = File(...)):
         # Get prediction probabilities
         probabilities = predictions[0].tolist()
         
-        # Get predicted class
+        # Get the highest confidence score and its corresponding class index
+        confidence = float(np.max(predictions[0]))
         predicted_class_idx = np.argmax(predictions[0])
-        predicted_class = CLASS_NAMES[predicted_class_idx]
-        confidence = float(probabilities[predicted_class_idx])
-        
+
+        # --- OOD Image Handling Logic ---
+        # Define the confidence threshold
+        confidence_threshold = 0.70 # You can adjust this value
+
+        if confidence < confidence_threshold:
+            # If confidence is below the threshold, classify as OOD
+            predicted_class = "Non-Tea Leaf"
+        else:
+            # Otherwise, use the model's prediction
+            predicted_class = CLASS_NAMES[predicted_class_idx]
+
         # Prepare response
         result = {
             "filename": file.filename,
@@ -278,7 +288,6 @@ async def predict_disease(file: UploadFile = File(...)):
     except Exception as e:
         logger.error(f"Error during prediction: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
-
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
     """Global exception handler"""
